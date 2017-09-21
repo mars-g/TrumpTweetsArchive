@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Trump Tweets</string>
+    <string name="search_edit_message">Enter search here</string>
+    <string-array name="year_choices">Year choices
+        <item name="choice2017">2017</item>
+        <item name="choice2016">2016</item>
+        <item name="choice2015">2015</item>
+        <item name="choice2014">2014</item>
+        <item name="choice2013">2013</item>
+        <item name="choice2012">2012</item>
+        <item name="choice2011">2011</item>
+        <item name="choice2010">2010</item>
+        <item name="choice2009">2009</item>
+    </string-array>
+    <string-array name="year_choices2">Year choices
+        <item name="choice2017">2009</item>
+        <item name="choice2016">2010</item>
+        <item name="choice2015">2011</item>
+        <item name="choice2014">2012</item>
+        <item name="choice2013">2013</item>
+        <item name="choice2012">2014</item>
+        <item name="choice2011">2015</item>
+        <item name="choice2010">2016</item>
+        <item name="choice2009">2017</item>
+    </string-array>
+    <string name="year_text"></string>
+
+</resources>

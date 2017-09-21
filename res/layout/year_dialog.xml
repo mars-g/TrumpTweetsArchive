@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.02"
+        android:layout_marginLeft="8dp"
+        android:text="Select Date Range:"
+        android:textSize="30sp" />
+    <Spinner
+        android:id="@+id/startSpinner"
+        android:entries="@array/year_choices2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"/>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.02"
+        android:layout_marginLeft="8dp"
+        android:text="to"
+        android:textSize="20sp" />
+    <Spinner
+        android:id="@+id/endSpinner"
+        android:entries="@array/year_choices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"/>
+
+
+</LinearLayout>
