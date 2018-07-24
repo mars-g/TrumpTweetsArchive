@@ -2,6 +2,7 @@
     <string name="app_name">Trump Tweets</string>
     <string name="search_edit_message">Enter search here</string>
     <string-array name="year_choices">Year choices
+        <item name="choice2018">2018</item>
         <item name="choice2017">2017</item>
         <item name="choice2016">2016</item>
         <item name="choice2015">2015</item>
@@ -22,6 +23,7 @@
         <item name="choice2011">2015</item>
         <item name="choice2010">2016</item>
         <item name="choice2009">2017</item>
+        <item name="choice2018">2018</item>
     </string-array>
     <string name="year_text"></string>
 

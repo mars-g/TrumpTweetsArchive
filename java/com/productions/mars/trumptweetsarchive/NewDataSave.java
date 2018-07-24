@@ -25,13 +25,12 @@ public class NewDataSave extends AsyncTask<String, Integer, String> {
         //save 2017.json data
         try {
             String saveFile = mainActivity.getFilesDir().getAbsolutePath();
-            System.out.println(mainActivity.getFilesDir().getAbsolutePath());
-            saveFile = saveFile + "/2017.json";
+            saveFile = saveFile + "/2018.json";
             FileOutputStream outputStream = new FileOutputStream(new File(saveFile));
-            outputStream.write(mainActivity.str2017.getBytes());
+            outputStream.write(mainActivity.str2018.getBytes());
         }
         catch (Exception ex) {
-            System.out.println("Failed to save 2017 data" + ex );
+            System.out.println("Failed to save 2018 data" + ex );
         }
         //save index
         try {

@@ -17,7 +17,7 @@ import org.json.*;
 
 class HTMLSearch extends AsyncTask<String,Integer, String> {
     String resultString;
-    private JSONArray newData2017;
+    private JSONArray newData2018;
     @Override
     protected String doInBackground(String... params) {
         try {
@@ -36,10 +36,10 @@ class HTMLSearch extends AsyncTask<String,Integer, String> {
             }
             resultString = result.toString();
             try {
-                newData2017 = (JSONArray) new JSONTokener(resultString).nextValue();
+                newData2018 = (JSONArray) new JSONTokener(resultString).nextValue();
             }
             catch (Exception ex) {
-                System.out.println("Error in loading new 2017 data " + ex);
+                System.out.println("Error in loading new 2018 data " + ex);
             }
             return resultString;
         }

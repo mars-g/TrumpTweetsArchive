@@ -54,25 +54,46 @@ class IndexLoader extends AsyncTask<String, Integer, String>{
         //load in the json object array, then add it to hashes
         try { //2017
             String saveFile = mainActivity.getFilesDir().getAbsolutePath();
-            saveFile = saveFile + "/2017.json";
+            saveFile = saveFile + "/2018.json";
             FileInputStream inputStream = new FileInputStream(new File(saveFile));
             String strJSON = mainActivity.convertStreamToString(inputStream);
-            mainActivity.data2017 = (JSONArray) new JSONTokener(strJSON).nextValue();
-            mainActivity.str2017 = strJSON;
-            for (int i = 0; i < mainActivity.data2017.length(); i++){
+            mainActivity.data2018 = (JSONArray) new JSONTokener(strJSON).nextValue();
+            mainActivity.str2018 = strJSON;
+            for (int i = 0; i < mainActivity.data2018.length(); i++){
                 mainActivity.idText.put(
-                        mainActivity.data2017.getJSONObject(i).get("id_str").toString(),
-                        mainActivity.data2017.getJSONObject(i).get("text").toString()
+                        mainActivity.data2018.getJSONObject(i).get("id_str").toString(),
+                        mainActivity.data2018.getJSONObject(i).get("text").toString()
                 );
                 mainActivity.idDate.put(
-                        mainActivity.data2017.getJSONObject(i).get("id_str").toString(),
-                        mainActivity.data2017.getJSONObject(i).get("created_at").toString()
+                        mainActivity.data2018.getJSONObject(i).get("id_str").toString(),
+                        mainActivity.data2018.getJSONObject(i).get("created_at").toString()
                 );
 
             }
         }
         catch (Exception ex) {
             System.out.println("2017 data not loaded\n" + ex);
+        }
+        try { //2017
+            String saveFile = mainActivity.getFilesDir().getAbsolutePath();
+            saveFile = saveFile + "/2017.txt";
+            FileInputStream inputStream = new FileInputStream(new File(saveFile));
+            String strJSON = mainActivity.convertStreamToString(inputStream);
+            JSONArray data = (JSONArray) new JSONTokener(strJSON).nextValue();
+            for (int i = 0; i < data.length(); i++){
+                mainActivity.idText.put(
+                        data.getJSONObject(i).get("id_str").toString(),
+                        data.getJSONObject(i).get("text").toString()
+                );
+                mainActivity.idDate.put(
+                        data.getJSONObject(i).get("id_str").toString(),
+                        data.getJSONObject(i).get("created_at").toString()
+                );
+
+            }
+        }
+        catch (Exception ex) {
+            System.out.println("2016 data not loaded\n" + ex);
         }
         try { //2016
             String saveFile = mainActivity.getFilesDir().getAbsolutePath();
@@ -246,7 +267,7 @@ class IndexLoader extends AsyncTask<String, Integer, String>{
         //check to see if we can update tweets right now
         if (mainActivity.dataLoader != null && mainActivity.dataLoader.resultString != null && !mainActivity.beenUpdated){
             mainActivity.dataUpdate = new DataUpdate(mainActivity);
-            mainActivity.dataUpdate.doInBackground(mainActivity.dataLoader.resultString, mainActivity.str2017);
+            mainActivity.dataUpdate.doInBackground(mainActivity.dataLoader.resultString, mainActivity.str2018);
 
         }
         return null;

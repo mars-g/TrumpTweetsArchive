@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 /**
  * Created by Marshall on 7/15/2017.
- * This file updates the data with new tweets from 2017 and adds them to index and database
+ * This file updates the data with new tweets from 2018 and adds them to index and database
  */
 
 class DataUpdate extends AsyncTask<String, Integer, String>{
@@ -18,7 +18,7 @@ class DataUpdate extends AsyncTask<String, Integer, String>{
     //constructor
     DataUpdate(MainActivity activity){
         mainActivity = activity;
-        doInBackground(mainActivity.dataLoader.resultString, mainActivity.str2017);
+        doInBackground(mainActivity.dataLoader.resultString, mainActivity.str2018);
     }
 
     @Override
@@ -29,7 +29,7 @@ class DataUpdate extends AsyncTask<String, Integer, String>{
            //load in new data into a json array
             newData = (JSONArray) new JSONTokener(params[0]).nextValue();
             //this loops isolates all the new data
-            for (int i = newData.length() - mainActivity.data2017.length() - 1; i >= 0 ; i--){
+            for (int i = newData.length() - mainActivity.data2018.length() - 1; i >= 0 ; i--){
                 //add tweet text and date info to hashmap
                 mainActivity.idText.put(
                         newData.getJSONObject(i).get("id_str").toString(),
@@ -61,7 +61,7 @@ class DataUpdate extends AsyncTask<String, Integer, String>{
                 }
             }
             mainActivity.beenUpdated = true;
-            mainActivity.str2017 = params[0];
+            mainActivity.str2018 = params[0];
 
             //save this updated data
             NewDataSave newDataSave = new NewDataSave(mainActivity);

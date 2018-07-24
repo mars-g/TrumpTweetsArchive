@@ -34,18 +34,18 @@ import org.json.*;
 public class MainActivity extends AppCompatActivity {
     public HTMLSearch dataLoader;
     public DataUpdate dataUpdate;
-    public JSONArray data2017;
+    public JSONArray data2018;
     //used for spinner selections
     public Integer startChoice;
     public Integer endChoice;
 
     Boolean beenUpdated;
 
-    public String str2017;
+    public String str2018;
 
-    //hashmap of index
+    //map of index
     public HashMap<String,ArrayList<String>> index;
-    //hasmap of ids to text,data
+    //map of ids to text,data
     public HashMap<String,String> idText;
     public HashMap<String,String> idDate;
 
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Set initial values
         startChoice = 2009;
-        endChoice = 2017;
+        endChoice = 2018;
         beenUpdated = false;
         index = new HashMap<>();
         idText = new HashMap<>();
@@ -117,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
         dataLoader = new HTMLSearch();
 
         try {
-            dataLoader.execute("http://www.trumptwitterarchive.com/data/realdonaldtrump/2017.json");
+            dataLoader.execute("http://www.trumptwitterarchive.com/data/realdonaldtrump/2018.json");
         } catch (Exception ex) {
-            System.out.println("Failed to load 2017 data, use backup version");
+            System.out.println("Failed to load 2018 data, use backup version");
         }
         //loads index, id text and dates
         //indexLoader = new IndexLoader(this);
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     //Onclick function handles button click
     //Does the following:
         //Checks if it should update data
-            //If yes, then it saves data and calls async tsak to store data
+            //If yes, then it saves data and calls async task to store data
         //Initiates search
     public void onClick(View view) {
         EditText editText = (EditText) findViewById(R.id.editText);
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //controls the spinner selection for the yeat
+    //controls the spinner selection for the year
     public void yearClick(View view){
         yearDialog = new Dialog(this);
         yearDialog.setContentView(R.layout.year_dialog);
@@ -181,12 +181,12 @@ public class MainActivity extends AppCompatActivity {
                 this, R.array.year_choices, R.layout.spinnerlayout);
         endAdapter.setDropDownViewResource(R.layout.spinnerlayout);
         endSpinner.setAdapter(endAdapter);
-        endSpinner.setSelection(2017 - endChoice);
+        endSpinner.setSelection(2018 - endChoice);
         endSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
-                endChoice = 2017 - pos;
+                endChoice = 2018 - pos;
                 //setting year string
                 String yearString = startChoice + " - " + endChoice;
                 TextView yearText = (TextView) findViewById(R.id.textView2);
@@ -358,23 +358,60 @@ public class MainActivity extends AppCompatActivity {
     }
     //loads in all the ids to text and date
     public void loadTweets(){
-        //load in hte json object array, then add it to hashes
-        try { //2017
+        //load in the json object array, then add it to hashes
+        try { //2018
             String saveFile = getFilesDir().getAbsolutePath();
-            saveFile = saveFile + "/2017.json";
+            saveFile = saveFile + "/2018.json";
             FileInputStream inputStream = new FileInputStream(new File(saveFile));
             String strJSON = convertStreamToString(inputStream);
-            data2017 = (JSONArray) new JSONTokener(strJSON).nextValue();
-            System.out.println("Length = " + data2017.length());
-            str2017 = strJSON;
-            for (int i = 0; i < data2017.length(); i++){
-                idText.put(
-                        data2017.getJSONObject(i).get("id_str").toString(),
-                        data2017.getJSONObject(i).get("text").toString()
-                );
+            data2018 = (JSONArray) new JSONTokener(strJSON).nextValue();
+            System.out.println("Length = " + data2018.length());
+            str2018 = strJSON;
+            for (int i = 0; i < data2018.length(); i++){
+                if (data2018.getJSONObject(i).has("text")) {
+                    idText.put(
+                            data2018.getJSONObject(i).get("id_str").toString(),
+                            data2018.getJSONObject(i).get("text").toString()
+                    );
+                }
+                else {
+                    idText.put(
+                            data2018.getJSONObject(i).get("id_str").toString(),
+                            data2018.getJSONObject(i).get("full_text").toString()
+                    );
+                }
                 idDate.put(
-                        data2017.getJSONObject(i).get("id_str").toString(),
-                        data2017.getJSONObject(i).get("created_at").toString()
+                        data2018.getJSONObject(i).get("id_str").toString(),
+                        data2018.getJSONObject(i).get("created_at").toString()
+                );
+
+            }
+        }
+        catch (Exception ex) {
+            System.out.println("2018 data not loaded\n" + ex);
+        }
+        try { //2017
+            String saveFile = getFilesDir().getAbsolutePath();
+            saveFile = saveFile + "/2017.txt";
+            FileInputStream inputStream = new FileInputStream(new File(saveFile));
+            String strJSON = convertStreamToString(inputStream);
+            JSONArray data = (JSONArray) new JSONTokener(strJSON).nextValue();
+            for (int i = 0; i < data.length(); i++){
+                if (data.getJSONObject(i).has("full_text")) {
+                    idText.put(
+                            data.getJSONObject(i).get("id_str").toString(),
+                            data.getJSONObject(i).get("full_text").toString()
+                    );
+                }
+                else {
+                    idText.put(
+                            data.getJSONObject(i).get("id_str").toString(),
+                            data.getJSONObject(i).get("text").toString()
+                    );
+                }
+                idDate.put(
+                        data.getJSONObject(i).get("id_str").toString(),
+                        data.getJSONObject(i).get("created_at").toString()
                 );
 
             }

@@ -29,6 +29,7 @@ public class OnFirstLoad {
 
     OnFirstLoad(MainActivity inAct){
         mainActivity = inAct;
+        System.out.println("HERE");
 
     }
 
@@ -52,9 +53,19 @@ public class OnFirstLoad {
         }
         try {
             String saveFile = mainActivity.getFilesDir().getAbsolutePath();
-            saveFile = saveFile + "/2017.json";
+            saveFile = saveFile + "/2018.json";
             FileOutputStream outputStream = new FileOutputStream(new File(saveFile));
-            String strJSON = mainActivity.LoadFile("2017.json", false);
+            String strJSON = mainActivity.LoadFile("2018.json", false);
+            outputStream.write(strJSON.getBytes());
+        }
+        catch (Exception ex){
+            System.out.println("Problem saving data 2018 " + ex);
+        }
+        try {
+            String saveFile = mainActivity.getFilesDir().getAbsolutePath();
+            saveFile = saveFile + "/2017.txt";
+            FileOutputStream outputStream = new FileOutputStream(new File(saveFile));
+            String strJSON = mainActivity.LoadFile("2017.txt", false);
             outputStream.write(strJSON.getBytes());
         }
         catch (Exception ex){
